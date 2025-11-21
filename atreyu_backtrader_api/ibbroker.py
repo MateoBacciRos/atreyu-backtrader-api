@@ -135,6 +135,8 @@ class IBOrder(OrderBase, ibapi.order.Order):
 
         super(IBOrder, self).__init__()
         ibapi.order.Order.__init__(self)  # Invoke 2nd base class
+        self.eTradeOnly = False
+        self.firmQuoteOnly = False
 
         # Now fill in the specific IB parameters
         self.orderType = self._IBOrdTypes[self.exectype]
@@ -523,9 +525,9 @@ class IBBroker(with_metaclass(MetaIBBroker, BrokerBase)):
                 if dt_array and len(dt_array) > 1:
                   dt_array.pop()
                   ex_time = " ".join(dt_array)
-                  dt = date2num(datetime.strptime(ex_time, '%Y%m%d %H:%M:%S'))
+                  dt = date2num(datetime.strptime(ex_time, '%Y%m%d '))
                 else:
-                  dt = date2num(datetime.strptime(ex.time, '%Y%m%d %H:%M:%S %A'))
+                  dt = date2num(datetime.strptime(ex.time, '%Y%m%d '))
 
                 # Need to simulate a margin, but it plays no role, because it is
                 # controlled by a real broker. Let's set the price of the item
