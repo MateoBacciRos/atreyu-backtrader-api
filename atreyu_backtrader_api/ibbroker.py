@@ -135,6 +135,9 @@ class IBOrder(OrderBase, ibapi.order.Order):
 
         super(IBOrder, self).__init__()
         ibapi.order.Order.__init__(self)  # Invoke 2nd base class
+
+        # ¡¡¡ ATENCION !!!
+        # Se necesitan setear en False estos dos atributos para que funcione el envío de órdenes en IB
         self.eTradeOnly = False
         self.firmQuoteOnly = False
 
